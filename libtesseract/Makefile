@@ -8,3 +8,6 @@ release:
 	
 	# Building
 	task build-tesseract-xcframework-zip
+	
+clean:
+	task clean-build-folder clean-artifacts clean-sources
