@@ -29,7 +29,7 @@ release: build
 	@(cd ../ && git push && git push --tags)
     
 	# Creating github release
-	@(cd ../ && gh release create "$(NEWVERSION)" --generate-notes /tmp/libtesseract.xcframework.zip)
+	@(gh release create "$(NEWVERSION)" --generate-notes libtesseract.xcframework.zip)
 	
 clean:
 	task clean-build-folder clean-artifacts clean-sources
