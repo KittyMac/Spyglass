@@ -15,12 +15,12 @@ build: init
 	task build-tesseract-xcframework-zip
 
 release: build
+	$(eval NEWVERSION := $(shell read -p "Enter version tag numer (ie $(VERSION)): " version; echo $$version))
+	
 	# Updating Package.swift
 	$(eval CHECKSUM := $(shell shasum -a 256 ./libtesseract.xcframework.zip | sed 's/ .*//'))
 	@(cd ../ && sed -i.bak "s@checksum: \"[^\"]*@checksum: \"$(CHECKSUM)@g" Package.swift && rm Package.swift.bak)
-	@(cd ../ && sed -i.bak "s@\surl: \"[^\"]*@\surl: \"https://github.com/SmallPlanet/RoveriOS/releases/download/$(VERSION)/libtesseract.xcframework.zip@g" Package.swift && rm Package.swift.bak)
-
-	$(eval NEWVERSION := $(shell read -p "Enter version tag numer (ie $(VERSION)): " version; echo $$version))
+	@(cd ../ && sed -i.bak "s@\surl: \"[^\"]*@\surl: \"https://github.com/SmallPlanet/RoveriOS/releases/download/$(NEWVERSION)/libtesseract.xcframework.zip@g" Package.swift && rm Package.swift.bak)
 
 	# Commit tagged release
 	@(cd ../ && sed -i.bak "s@Latest version: .*@Latest version: $(NEWVERSION)@g" README.md && rm README.md.bak)
