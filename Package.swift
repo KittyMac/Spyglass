@@ -53,7 +53,8 @@ let ctessTargets: [Target] = [
         ],
         linkerSettings: [
             .linkedLibrary("z"),
-            .linkedLibrary("tesseract", .when(platforms: [.linux]))
+            .linkedLibrary("tesseract", .when(platforms: [.linux])),
+            .linkedLibrary("leptonica", .when(platforms: [.linux]))
         ]
     )
 ]

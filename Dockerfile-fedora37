@@ -6,6 +6,7 @@ RUN dnf install -y \
     swift-lang-5.7-1.fc37 \
     javascriptcoregtk4.0-devel \
     tesseract-devel \
+    leptonica-devel \
     libatomic_ops
 
 RUN ln -s /usr/libexec/swift/*/lib/libsourcekitdInProc.so /usr/lib/libsourcekitdInProc.so
@@ -22,3 +23,5 @@ RUN swift build --configuration release
 RUN swift test -v
 
 FROM alpine
+
+COPY --from=builder /root/Spyglass/.build/debug/libtesseract.framework/libtesseract .
