@@ -55,13 +55,14 @@ let package = Package(
         .binaryTarget(
             name: "libtesseract",
             url: "https://github.com/SmallPlanet/RoveriOS/releases/download/v0.0.5/libtesseract.xcframework.zip",
-            checksum: "778f1e6c1a6cf5c55441f1bd0a871995bb8afeb5e023a13f850a82c4bd256404"
+            checksum: "07b667b5194a80163c597c3eb3f5e924e95420c90bea1230a8e393475497fa9c"
         ),
         .target(
             name: "Spyglass",
             dependencies: [
                 "Hitch",
-                "Chronometer"
+                "Chronometer",
+                "libtesseract"
             ]
         ),
         .testTarget(

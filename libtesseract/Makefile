@@ -20,7 +20,7 @@ release: build
 	# Updating Package.swift
 	$(eval CHECKSUM := $(shell shasum -a 256 ./libtesseract.xcframework.zip | sed 's/ .*//'))
 	@(cd ../ && sed -i.bak "s@checksum: \"[^\"]*@checksum: \"$(CHECKSUM)@g" Package.swift && rm Package.swift.bak)
-	@(cd ../ && sed -i.bak "s@url: \"https://github.com/KittyMac/Spyglass/releases/download[^\"]*@url: \"https://github.com/SmallPlanet/RoveriOS/releases/download/$(NEWVERSION)/libtesseract.xcframework.zip@g" Package.swift && rm Package.swift.bak)
+	@(cd ../ && sed -i.bak "s@url: \"https://github.com/KittyMac/Spyglass/releases/download[^\"]*@url: \"https://github.com/KittyMac/Spyglass/releases/download/$(NEWVERSION)/libtesseract.xcframework.zip@g" Package.swift && rm Package.swift.bak)
 
 	# Commit tagged release
 	@(cd ../ && sed -i.bak "s@Latest version: .*@Latest version: $(NEWVERSION)@g" README.md && rm README.md.bak)
