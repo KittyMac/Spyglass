@@ -45,12 +45,18 @@ let package = Package(
     ],
     products: [
         .library( name: "Spyglass", targets: ["Spyglass"]),
+        .library( name: "libtesseract", targets: ["libtesseract"]),
     ],
     dependencies: [
         .package(url: "https://github.com/KittyMac/Chronometer.git", from: "0.1.0"),
         .package(url: "https://github.com/KittyMac/Hitch.git", from: "0.4.0")
     ],
     targets: [
+        .binaryTarget(
+            name: "libtesseract",
+            url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.1/libtesseract.xcframework.zip",
+            checksum: "2bb88d3a5d5c1b6aeaa729b99ad375957d933c1eac14f1190931081650320ac5"
+        ),
         .target(
             name: "Spyglass",
             dependencies: [
