@@ -38,7 +38,7 @@ vars:
 
   LIBTESSERACT_PROJECT: libtesseract.xcodeproj
 
-  IOS_VERSION_MIN_NUMBER: 15.0
+  IOS_VERSION_MIN_NUMBER: 11.0
   IOS_VERSION_MIN: "iphoneos-version-min={{.IOS_VERSION_MIN_NUMBER}}"
   IOS_ARCH_NAME: "arm64-apple-ios{{.IOS_VERSION_MIN_NUMBER}}"  
   IOS_HOST: "{{.IOS_ARCH_NAME}}"
@@ -49,7 +49,7 @@ vars:
 
   IOS_FRAMEWORK: "{{.SRC_DIR}}/build/Release-iphoneos/libtesseract.framework"
 
-  IOS_SIMULATOR_VERSION_MIN: ios-simulator-version-min=15.0
+  IOS_SIMULATOR_VERSION_MIN: ios-simulator-version-min=11.0
   IOS_SIMULATOR_PLATFORM_PREFIX: simulator
   IOS_SIMULATOR_SDK:
     sh: xcrun --sdk iphonesimulator --show-sdk-path
@@ -64,7 +64,7 @@ vars:
 
   IOS_SIMULATOR_FRAMEWORK: "{{.SRC_DIR}}/build/Release-iphonesimulator/libtesseract.framework"
 
-  MACOS_VERSION_MIN: macosx-version-min=14.0
+  MACOS_VERSION_MIN: macosx-version-min=11.0
   MACOS_PLATFORM_PREFIX: macos
   MACOS_SDK:
     sh: xcrun --sdk macosx --show-sdk-path
@@ -153,6 +153,7 @@ tasks:
         xcodebuild -project {{.LIBTESSERACT_PROJECT}} \
           -scheme 'libtesseract macOS' \
           -sdk macosx \
+          MACOSX_DEPLOYMENT_TARGET=11.0 \
           -destination 'generic/platform=macOS' \
           -configuration 'Release' \
           SYMROOT=`pwd`/build \

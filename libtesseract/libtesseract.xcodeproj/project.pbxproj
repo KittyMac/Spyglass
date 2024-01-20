@@ -150,6 +150,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4683FD9C2B5C2EE900AF476E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		62BA6A8E24AC49F60097319E /* combined.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = combined.a; sourceTree = "<group>"; };
 		62BA6A9424AC4A280097319E /* libtesseract.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libtesseract.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BA6AB024AC4A810097319E /* libtesseract.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libtesseract.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,6 +335,7 @@
 		62BA6AD824AC539F0097319E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4683FD9C2B5C2EE900AF476E /* Accelerate.framework */,
 				62BA6ADF24AC53C40097319E /* libc++.tbd */,
 				62BA6ADB24AC53B20097319E /* libz.tbd */,
 				62BA6ADD24AC53BB0097319E /* libz.tbd */,

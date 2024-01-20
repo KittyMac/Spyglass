@@ -32,4 +32,6 @@ release: build
 	@(gh release create "$(NEWVERSION)" --generate-notes libtesseract.xcframework.zip)
 	
 clean:
+	rm -rf build aarch64-apple-darwin arm64-apple-ios-macabi arm64-apple-ios15.0 arm64-apple-ios15.0-simulator x86_64-apple-darwin DerivedData 
+	rm -rf ios macos simulator
 	task clean-build-folder clean-artifacts clean-sources
