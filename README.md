@@ -3,4 +3,4 @@ Tesseract for Swift
 
 
 
-Latest version: v0.0.2
+Latest version: v0.0.3

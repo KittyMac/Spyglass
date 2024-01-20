@@ -55,7 +55,7 @@ let package = Package(
         .binaryTarget(
             name: "libtesseract",
             url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.1/libtesseract.xcframework.zip",
-            checksum: "78dab40c67e39d1bd1830430eb0c6d31960989fec373e2104d8f3c5a2ea220c4"
+            checksum: "3fe9cec7f1d7e0c0951db301c8b55531a2e757b67192112323b78a0efdd0b551"
         ),
         .target(
             name: "Spyglass",
