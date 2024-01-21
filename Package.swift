@@ -19,8 +19,8 @@ let libtesseractTargets: [Target] = [
 let libtesseractTargets: [Target] = [
     .binaryTarget(
         name: "libtesseract",
-        url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.7/libtesseract.xcframework.zip",
-        checksum: "585f28ecf7e634602567f9c94c5a4c10a7a6ec3ccfee1af2939c55d517edb84f"
+        url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.9/libtesseract.xcframework.zip",
+        checksum: "b60a5c86110dfb683b44df3f29bcd7fede7787afb2064c6d3f90f220758892df"
     ),
 ]
 #endif
