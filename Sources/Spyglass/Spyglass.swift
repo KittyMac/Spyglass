@@ -60,14 +60,25 @@ public class Spyglass {
     deinit {
         ctess_destroy(ctess)
     }
-    
-    public func parse(image: Data) -> String? {
+        
+    public func parse(image: Data,
+                      binarized: Int = 0,
+                      cropTop: Int = 0,
+                      cropLeft: Int = 0,
+                      cropBottom: Int = 0,
+                      cropRight: Int = 0) -> String? {
         let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
             let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
 
             return ctess_parse(ctess,
                                unsafeBufferPointer.baseAddress,
-                               image.count)
+                               image.count,
+                               Int32(binarized),
+                               Int32(cropTop),
+                               Int32(cropLeft),
+                               Int32(cropBottom),
+                               Int32(cropRight)
+            )
         }
         
         guard let stringPtr = stringPtr else { return nil}
@@ -79,3 +90,14 @@ public class Spyglass {
         return string
     }
 }
+
+/*
+ const char * ctess_parse(CTess * ctess,
+                          const void * imageData,
+                          size_t imageDataSize,
+                          int32_t binaryThreshold,
+                          int32_t cropTop,
+                          int32_t cropLeft,
+                          int32_t cropBottom,
+                          int32_t cropRight)
+ */

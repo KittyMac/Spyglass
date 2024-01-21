@@ -15,6 +15,11 @@ CTess * ctess_init2(const char * language,
 void ctess_destroy(CTess * ctess);
 const char * ctess_parse(CTess * ctess,
                          const void * imageData,
-                         size_t imageDataSize);
+                         size_t imageDataSize,
+                         int32_t binaryThreshold,
+                         int32_t cropTop,
+                         int32_t cropLeft,
+                         int32_t cropBottom,
+                         int32_t cropRight);
 
 #endif

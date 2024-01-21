@@ -7,6 +7,10 @@
 #include <string.h>
 
 extern PIX * pixReadMem(const l_uint8 *data, size_t size );
+extern PIX * pixConvertTo8 ( PIX *pixs, l_int32 cmapflag );
+extern PIX * pixThresholdToBinary ( PIX *pixs, l_int32 thresh );
+extern PIX * pixRemoveBorderGeneral ( PIX *pixs, l_int32 left, l_int32 right, l_int32 top, l_int32 bot );
+extern void pixDestroy ( PIX **ppix );
 
 CTess * ctess_init(const char * language,
                    const char * tessdataPath) {
@@ -48,9 +52,27 @@ void ctess_destroy(CTess * ctess) {
 
 const char * ctess_parse(CTess * ctess,
                          const void * imageData,
-                         size_t imageDataSize) {
+                         size_t imageDataSize,
+                         int32_t binaryThreshold,
+                         int32_t cropTop,
+                         int32_t cropLeft,
+                         int32_t cropBottom,
+                         int32_t cropRight) {
     PIX * pix = pixReadMem(imageData, imageDataSize);
     if (pix == NULL) { return NULL; }
+    
+    if (binaryThreshold > 0) {
+        PIX *pixB = pixConvertTo8(pix, 0);
+        pixDestroy(&pix);
+        pix = pixThresholdToBinary(pixB, binaryThreshold);
+        pixDestroy(&pixB);
+    }
+    
+    if (cropTop > 0 || cropLeft > 0 || cropBottom > 0 || cropRight > 0) {
+        PIX *pixB = pixRemoveBorderGeneral(pix, cropLeft, cropRight, cropTop, cropBottom);
+        pixDestroy(&pix);
+        pix = pixB;
+    }
     
     TessBaseAPISetImage2(ctess->tesseract, pix);
     

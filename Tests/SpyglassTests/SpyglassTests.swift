@@ -60,7 +60,9 @@ final class SpyglassTests: XCTestCase {
         let image = Hitch(contentsOfFile: testdata(path: "Data/images/image6.png"))!
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
-        let result = spyglass.parse(image: image.dataNoCopy())
-        XCTAssertEqual(result, "Gradient Glitter Phone C... $2.97\niPhone 14 Pro / black x1\nWW\ni Vertical dingcheng\n")
+        let result = spyglass.parse(image: image.dataNoCopy(),
+                                    binarized: 200,
+                                    cropLeft: 150)
+        XCTAssertEqual(result, "Gradient Glitter Phone C... $2.97\niPhone 14 Pro / black x1\nVertical dingcheng\n")
     }
 }
