@@ -55,8 +55,6 @@
 		F47BEE7D2B3E2CB800D49930 /* endianness.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE342B3E2CB700D49930 /* endianness.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE7E2B3E2CB800D49930 /* imageio.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE352B3E2CB700D49930 /* imageio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE7F2B3E2CB800D49930 /* imageio.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE352B3E2CB700D49930 /* imageio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE802B3E2CB800D49930 /* tiffvers.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE362B3E2CB700D49930 /* tiffvers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE812B3E2CB800D49930 /* tiffvers.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE362B3E2CB700D49930 /* tiffvers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE822B3E2CB800D49930 /* bmfdata.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE372B3E2CB700D49930 /* bmfdata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE832B3E2CB800D49930 /* bmfdata.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE372B3E2CB700D49930 /* bmfdata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE842B3E2CB800D49930 /* ocrclass.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE382B3E2CB700D49930 /* ocrclass.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -79,14 +77,10 @@
 		F47BEE952B3E2CB800D49930 /* pageiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE402B3E2CB700D49930 /* pageiterator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE962B3E2CB800D49930 /* heap.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE412B3E2CB700D49930 /* heap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE972B3E2CB800D49930 /* heap.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE412B3E2CB700D49930 /* heap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE982B3E2CB800D49930 /* tiffio.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE422B3E2CB700D49930 /* tiffio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE992B3E2CB800D49930 /* tiffio.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE422B3E2CB700D49930 /* tiffio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE9A2B3E2CB800D49930 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE432B3E2CB700D49930 /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE9B2B3E2CB800D49930 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE432B3E2CB700D49930 /* version.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE9C2B3E2CB800D49930 /* pix.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE442B3E2CB700D49930 /* pix.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEE9D2B3E2CB800D49930 /* pix.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE442B3E2CB700D49930 /* pix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE9E2B3E2CB800D49930 /* tiffconf.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE452B3E2CB700D49930 /* tiffconf.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEE9F2B3E2CB800D49930 /* tiffconf.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE452B3E2CB700D49930 /* tiffconf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEEA02B3E2CB800D49930 /* ltrresultiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE462B3E2CB700D49930 /* ltrresultiterator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEEA12B3E2CB800D49930 /* ltrresultiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE462B3E2CB700D49930 /* ltrresultiterator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEEA22B3E2CB800D49930 /* hashmap.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE472B3E2CB700D49930 /* hashmap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,8 +139,6 @@
 		F47BEED72B3E2CB800D49930 /* jmorecfg.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE612B3E2CB800D49930 /* jmorecfg.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEED82B3E2CB800D49930 /* ccbord_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE622B3E2CB800D49930 /* ccbord_internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47BEED92B3E2CB800D49930 /* ccbord_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE622B3E2CB800D49930 /* ccbord_internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEEDA2B3E2CB800D49930 /* tiff.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE632B3E2CB800D49930 /* tiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F47BEEDB2B3E2CB800D49930 /* tiff.h in Headers */ = {isa = PBXBuildFile; fileRef = F47BEE632B3E2CB800D49930 /* tiff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -173,7 +165,6 @@
 		F47BEE332B3E2CB700D49930 /* gplot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gplot.h; sourceTree = "<group>"; };
 		F47BEE342B3E2CB700D49930 /* endianness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endianness.h; sourceTree = "<group>"; };
 		F47BEE352B3E2CB700D49930 /* imageio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageio.h; sourceTree = "<group>"; };
-		F47BEE362B3E2CB700D49930 /* tiffvers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffvers.h; sourceTree = "<group>"; };
 		F47BEE372B3E2CB700D49930 /* bmfdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmfdata.h; sourceTree = "<group>"; };
 		F47BEE382B3E2CB700D49930 /* ocrclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ocrclass.h; sourceTree = "<group>"; };
 		F47BEE392B3E2CB700D49930 /* jconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jconfig.h; sourceTree = "<group>"; };
@@ -185,10 +176,8 @@
 		F47BEE3F2B3E2CB700D49930 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		F47BEE402B3E2CB700D49930 /* pageiterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pageiterator.h; sourceTree = "<group>"; };
 		F47BEE412B3E2CB700D49930 /* heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = heap.h; sourceTree = "<group>"; };
-		F47BEE422B3E2CB700D49930 /* tiffio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffio.h; sourceTree = "<group>"; };
 		F47BEE432B3E2CB700D49930 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		F47BEE442B3E2CB700D49930 /* pix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pix.h; sourceTree = "<group>"; };
-		F47BEE452B3E2CB700D49930 /* tiffconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiffconf.h; sourceTree = "<group>"; };
 		F47BEE462B3E2CB700D49930 /* ltrresultiterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltrresultiterator.h; sourceTree = "<group>"; };
 		F47BEE472B3E2CB700D49930 /* hashmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashmap.h; sourceTree = "<group>"; };
 		F47BEE482B3E2CB700D49930 /* pix_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pix_internal.h; sourceTree = "<group>"; };
@@ -218,7 +207,6 @@
 		F47BEE602B3E2CB800D49930 /* bmf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmf.h; sourceTree = "<group>"; };
 		F47BEE612B3E2CB800D49930 /* jmorecfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jmorecfg.h; sourceTree = "<group>"; };
 		F47BEE622B3E2CB800D49930 /* ccbord_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccbord_internal.h; sourceTree = "<group>"; };
-		F47BEE632B3E2CB800D49930 /* tiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiff.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,10 +300,6 @@
 				F47BEE4E2B3E2CB700D49930 /* stack.h */,
 				F47BEE562B3E2CB800D49930 /* stringcode.h */,
 				F47BEE2A2B3E2CB700D49930 /* sudoku.h */,
-				F47BEE632B3E2CB800D49930 /* tiff.h */,
-				F47BEE452B3E2CB700D49930 /* tiffconf.h */,
-				F47BEE422B3E2CB700D49930 /* tiffio.h */,
-				F47BEE362B3E2CB700D49930 /* tiffvers.h */,
 				F47BEE512B3E2CB700D49930 /* unichar.h */,
 				F47BEE432B3E2CB700D49930 /* version.h */,
 				F47BEE3B2B3E2CB700D49930 /* watershed.h */,
@@ -354,7 +338,6 @@
 				F47BEE822B3E2CB800D49930 /* bmfdata.h in Headers */,
 				F47BEE782B3E2CB800D49930 /* png.h in Headers */,
 				F47BEE642B3E2CB800D49930 /* pnglibconf.h in Headers */,
-				F47BEE982B3E2CB800D49930 /* tiffio.h in Headers */,
 				F47BEED82B3E2CB800D49930 /* ccbord_internal.h in Headers */,
 				F47BEEA62B3E2CB800D49930 /* regutils.h in Headers */,
 				F47BEEC62B3E2CB800D49930 /* pngconf.h in Headers */,
@@ -374,11 +357,9 @@
 				F47BEEA82B3E2CB800D49930 /* alltypes.h in Headers */,
 				F47BEE7C2B3E2CB800D49930 /* endianness.h in Headers */,
 				F47BEEB22B3E2CB800D49930 /* resultiterator.h in Headers */,
-				F47BEE9E2B3E2CB800D49930 /* tiffconf.h in Headers */,
 				F47BEEC02B3E2CB800D49930 /* stringcode.h in Headers */,
 				F47BEE702B3E2CB800D49930 /* rbtree.h in Headers */,
 				F47BEEBA2B3E2CB800D49930 /* colorfill.h in Headers */,
-				F47BEEDA2B3E2CB800D49930 /* tiff.h in Headers */,
 				F47BEEC82B3E2CB800D49930 /* recog.h in Headers */,
 				F47BEEBC2B3E2CB800D49930 /* jerror.h in Headers */,
 				F47BEE902B3E2CB800D49930 /* array.h in Headers */,
@@ -387,7 +368,6 @@
 				F47BEECE2B3E2CB800D49930 /* capi.h in Headers */,
 				F47BEE842B3E2CB800D49930 /* ocrclass.h in Headers */,
 				F47BEEB82B3E2CB800D49930 /* jbclass.h in Headers */,
-				F47BEE802B3E2CB800D49930 /* tiffvers.h in Headers */,
 				F47BEE682B3E2CB800D49930 /* sudoku.h in Headers */,
 				F47BEED02B3E2CB800D49930 /* bbuffer.h in Headers */,
 				F47BEE762B3E2CB800D49930 /* environ.h in Headers */,
@@ -421,7 +401,6 @@
 				F47BEE832B3E2CB800D49930 /* bmfdata.h in Headers */,
 				F47BEE792B3E2CB800D49930 /* png.h in Headers */,
 				F47BEE652B3E2CB800D49930 /* pnglibconf.h in Headers */,
-				F47BEE992B3E2CB800D49930 /* tiffio.h in Headers */,
 				F47BEED92B3E2CB800D49930 /* ccbord_internal.h in Headers */,
 				F47BEEA72B3E2CB800D49930 /* regutils.h in Headers */,
 				F47BEEC72B3E2CB800D49930 /* pngconf.h in Headers */,
@@ -441,11 +420,9 @@
 				F47BEEA92B3E2CB800D49930 /* alltypes.h in Headers */,
 				F47BEE7D2B3E2CB800D49930 /* endianness.h in Headers */,
 				F47BEEB32B3E2CB800D49930 /* resultiterator.h in Headers */,
-				F47BEE9F2B3E2CB800D49930 /* tiffconf.h in Headers */,
 				F47BEEC12B3E2CB800D49930 /* stringcode.h in Headers */,
 				F47BEE712B3E2CB800D49930 /* rbtree.h in Headers */,
 				F47BEEBB2B3E2CB800D49930 /* colorfill.h in Headers */,
-				F47BEEDB2B3E2CB800D49930 /* tiff.h in Headers */,
 				F47BEEC92B3E2CB800D49930 /* recog.h in Headers */,
 				F47BEEBD2B3E2CB800D49930 /* jerror.h in Headers */,
 				F47BEE912B3E2CB800D49930 /* array.h in Headers */,
@@ -454,7 +431,6 @@
 				F47BEECF2B3E2CB800D49930 /* capi.h in Headers */,
 				F47BEE852B3E2CB800D49930 /* ocrclass.h in Headers */,
 				F47BEEB92B3E2CB800D49930 /* jbclass.h in Headers */,
-				F47BEE812B3E2CB800D49930 /* tiffvers.h in Headers */,
 				F47BEE692B3E2CB800D49930 /* sudoku.h in Headers */,
 				F47BEED12B3E2CB800D49930 /* bbuffer.h in Headers */,
 				F47BEE772B3E2CB800D49930 /* environ.h in Headers */,
