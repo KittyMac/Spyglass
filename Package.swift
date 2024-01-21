@@ -69,6 +69,7 @@ let package = Package(
     ],
     products: [
         .library( name: "Spyglass", targets: ["Spyglass"]),
+        .library( name: "CTess", type: .dynamic, targets: ["CTess"]),
     ],
     dependencies: [
         .package(url: "https://github.com/KittyMac/Chronometer.git", from: "0.1.0"),
