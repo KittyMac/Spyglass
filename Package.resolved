@@ -10,12 +10,39 @@
       }
     },
     {
+      "identity" : "gzipswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/GzipSwift.git",
+      "state" : {
+        "revision" : "a9bbc39238e197e3e20b4346c45bfed767a817fe",
+        "version" : "5.3.3"
+      }
+    },
+    {
       "identity" : "hitch",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
         "revision" : "b23dba215ecaf089996b6975cdc996376ce27cd5",
         "version" : "0.4.117"
+      }
+    },
+    {
+      "identity" : "jib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Jib.git",
+      "state" : {
+        "revision" : "c44d90702f7c9d724a29bde857271b8a78a5b516",
+        "version" : "0.0.69"
+      }
+    },
+    {
+      "identity" : "pamphlet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Pamphlet.git",
+      "state" : {
+        "revision" : "b41a5bbc70a578d5a0672f0866ae49bfb095baa8",
+        "version" : "0.3.90"
       }
     }
   ],

@@ -73,7 +73,9 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/KittyMac/Chronometer.git", from: "0.1.0"),
-        .package(url: "https://github.com/KittyMac/Hitch.git", from: "0.4.0")
+        .package(url: "https://github.com/KittyMac/Hitch.git", from: "0.4.0"),
+        .package(url: "https://github.com/KittyMac/Pamphlet.git", from: "0.3.62"),
+        .package(url: "https://github.com/KittyMac/GzipSwift.git", from: "5.3.0"),
     ],
     targets: ctessTargets + [
         .target(
@@ -81,7 +83,12 @@ let package = Package(
             dependencies: [
                 "Hitch",
                 "Chronometer",
-                "CTess"
+                "CTess",
+                .product(name: "Gzip", package: "GzipSwift"),
+                .product(name: "PamphletTool", package: "Pamphlet"),
+            ],
+            plugins: [
+                .plugin(name: "PamphletReleaseOnlyPlugin", package: "Pamphlet"),
             ]
         ),
         .testTarget(

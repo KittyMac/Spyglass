@@ -19,6 +19,25 @@ CTess * ctess_init(const char * language,
     return ctess;
 }
 
+CTess * ctess_init2(const char * language,
+                    const char * tessdata,
+                    size_t tessdatasize) {
+    CTess * ctess = malloc(sizeof(CTess));
+    ctess->tesseract = TessBaseAPICreate();
+    TessBaseAPIInit5(ctess->tesseract,
+                     tessdata,
+                     (int)tessdatasize,
+                     language,
+                     OEM_LSTM_ONLY,
+                     NULL,
+                     0,
+                     NULL,
+                     NULL,
+                     0,
+                     0);
+    return ctess;
+}
+
 void ctess_destroy(CTess * ctess) {
     if (ctess != NULL) {
         TessBaseAPIEnd(ctess->tesseract);

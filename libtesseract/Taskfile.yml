@@ -17,6 +17,11 @@ vars:
   JPEG_ARCHIVE: libjpeg.a
   JPEG_CONFIG: "{{.JPEG_SRC}}/configure"
 
+  TIFF_NAME: tiff-4.6.0
+  TIFF_SRC:  "{{.SRC_DIR}}/{{.TIFF_NAME}}"
+  TIFF_ARCHIVE: libtiff.a
+  TIFF_CONFIG: "{{.TIFF_SRC}}/configure"
+
   TESSERACT_VERSION: 5.3.3
   TESSERACT_NAME: tesseract-{{.TESSERACT_VERSION}}
   TESSERACT_SRC: "{{.SRC_DIR}}/{{.TESSERACT_NAME}}"
@@ -91,7 +96,7 @@ tasks:
   clean-sources:
     cmds:
       - task: clean-artifacts
-      - rm -rf {{.PNG_SRC}} {{.JPEG_SRC}} {{.LEPTONICA_SRC}} {{.TESSERACT_SRC}}
+      - rm -rf {{.PNG_SRC}} {{.TIFF_SRC}} {{.JPEG_SRC}} {{.LEPTONICA_SRC}} {{.TESSERACT_SRC}}
 
   build-tesseract-ios-xcframework-zip:
     cmds:
@@ -279,6 +284,7 @@ tasks:
           {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.JPEG_ARCHIVE}} \
           {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.LEPTONICA_ARCHIVE}} \
           {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.PNG_ARCHIVE}} \
+          {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.TIFF_ARCHIVE}} \
           {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.TESSERACT_ARCHIVE}}
     status:
       - test -f {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/combined.a
@@ -313,7 +319,7 @@ tasks:
           PLATFORM_PREFIX: "{{.PLATFORM_PREFIX}}"
     cmds:
       - |
-        export LIBS="-lz -lpng -ljpeg"
+        export LIBS="-lz -lpng -ljpeg -ltiff"
         export SDKROOT="{{.SDK}}"
         export CFLAGS="-I{{.TESSERACT_SRC}}/{{.ARCH_NAME}}/ -arch {{.ARCH}} -pipe -no-cpp-precomp -isysroot $SDKROOT -m{{.PLATFORM_VERSION_MIN}} -Os"
         export CPPFLAGS=$CFLAGS
@@ -409,6 +415,14 @@ tasks:
           HOST: "{{.HOST}}"
           PLATFORM_PREFIX: "{{.PLATFORM_PREFIX}}"
     cmds:
+      - task: install-libtiff
+        vars:
+            SDK: "{{.SDK}}"
+            PLATFORM_VERSION_MIN: "{{.PLATFORM_VERSION_MIN}}"
+            ARCH: "{{.ARCH}}"
+            ARCH_NAME: "{{.ARCH_NAME}}"
+            HOST: "{{.HOST}}"
+            PLATFORM_PREFIX: "{{.PLATFORM_PREFIX}}"
       - task: autogen-liblept
       - |
         export SDKROOT={{.SDK}}
@@ -416,13 +430,13 @@ tasks:
         export CPPFLAGS=$CFLAGS
         export CXXFLAGS="-I{{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/include -arch {{.ARCH}} -pipe -no-cpp-precomp -isysroot $SDKROOT -m{{.PLATFORM_VERSION_MIN}} -Os -Wno-deprecated-register"
         export LDFLAGS="-L$SDKROOT/usr/lib -L{{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}"
-        export PKG_CONFIG_PATH={{.PNG_SRC}}/{{.ARCH_NAME}}/:{{.JPEG_SRC}}/{{.ARCH_NAME}}/
+        export PKG_CONFIG_PATH={{.PNG_SRC}}/{{.ARCH_NAME}}/:{{.JPEG_SRC}}/{{.ARCH_NAME}}/:{{.TIFF_SRC}}/{{.ARCH_NAME}}/
         export CXX="{{.TARGET_CXX}} --target={{.ARCH_NAME}}"
         export CXX_FOR_BUILD="{{.TARGET_CXX_FOR_BUILD}} --target={{.ARCH_NAME}}"
         export CC="{{.TARGET_CC}} --target={{.ARCH_NAME}}"
         mkdir -p {{.LEPTONICA_SRC}}/{{.ARCH_NAME}}
         cd {{.LEPTONICA_SRC}}/{{.ARCH_NAME}}
-        ../configure --host={{.HOST}} --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --without-libtiff --without-giflib --without-libwebp --without-libwebpmux --without-libopenjpeg
+        ../configure --host={{.HOST}} --prefix=`pwd` --enable-shared=no --disable-programs --with-zlib --with-libpng --with-jpeg --with-libtiff --without-giflib --without-libwebp --without-libwebpmux --without-libopenjpeg
     status:
       - test -f {{.LEPTONICA_SRC}}/{{.ARCH_NAME}}/Makefile
 
@@ -552,3 +566,76 @@ tasks:
         cp {{.PATCH_DIR}}/config.sub.patched {{.JPEG_SRC}}/config.sub
     status:
       - test -d {{.JPEG_SRC}}
+
+  install-libtiff:
+  
+    cmds:
+      - task: compile-libtiff
+        vars:
+          ARCH_NAME: "{{.ARCH_NAME}}"
+          ARCH: "{{.ARCH}}"
+          SDK: "{{.SDK}}"
+          HOST: "{{.HOST}}"
+          PLATFORM_VERSION_MIN: "{{.PLATFORM_VERSION_MIN}}"
+      - mkdir -p {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}
+      - mkdir -p {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/include
+      - cp {{.TIFF_SRC}}/{{.ARCH_NAME}}/lib/{{.TIFF_ARCHIVE}} {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}
+      - cp -rvf {{.TIFF_SRC}}/{{.ARCH_NAME}}/include/*.h {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/include
+    status:
+      - test -f {{.SRC_DIR}}/{{.PLATFORM_PREFIX}}/{{.ARCH_NAME}}/{{.TIFF_ARCHIVE}}
+
+  compile-libtiff:
+    cmds:
+      - task: configure-libtiff
+        vars:
+          SDK: "{{.SDK}}"
+          PLATFORM_VERSION_MIN: "{{.PLATFORM_VERSION_MIN}}"
+          ARCH_NAME: "{{.ARCH_NAME}}"
+          ARCH: "{{.ARCH}}"
+          HOST: "{{.HOST}}"
+      - |
+        cd {{.TIFF_SRC}}/{{.ARCH_NAME}}
+        make -sj8
+        make install
+    status:
+      - test -f {{.TIFF_SRC}}/{{.ARCH_NAME}}/lib/{{.TIFF_ARCHIVE}}
+
+  configure-libtiff:
+    deps: 
+      - task: install-libpng
+        vars:
+          SDK: "{{.SDK}}"
+          PLATFORM_VERSION_MIN: "{{.PLATFORM_VERSION_MIN}}"
+          ARCH: "{{.ARCH}}"
+          ARCH_NAME: "{{.ARCH_NAME}}"
+          HOST: "{{.HOST}}"
+          PLATFORM_PREFIX: "{{.PLATFORM_PREFIX}}"
+      - task: install-libjpeg
+        vars:
+          SDK: "{{.SDK}}"
+          PLATFORM_VERSION_MIN: "{{.PLATFORM_VERSION_MIN}}"
+          ARCH: "{{.ARCH}}"
+          ARCH_NAME: "{{.ARCH_NAME}}"
+          HOST: "{{.HOST}}"
+          PLATFORM_PREFIX: "{{.PLATFORM_PREFIX}}"
+      - task: download-libtiff
+    cmds:
+      - |
+        export SDKROOT={{.SDK}}
+        export CFLAGS="-arch {{.ARCH}} -pipe -no-cpp-precomp -isysroot $SDKROOT -m{{.PLATFORM_VERSION_MIN}} -Os"
+        export CPPFLAGS=$CFLAGS
+        export CXXFLAGS="$CFLAGS -Wno-deprecated-register"
+        export LDFLAGS="-L$SDKROOT/usr/lib"
+        mkdir -p {{.TIFF_SRC}}/{{.ARCH_NAME}}
+        cd {{.TIFF_SRC}}/{{.ARCH_NAME}}
+        ../configure CXX="{{.TARGET_CXX}} --target={{.ARCH_NAME}}" CC="{{.TARGET_CC}} --target={{.ARCH_NAME}}" --host={{.HOST}} --enable-fast-install --enable-shared=no --prefix=`pwd` --without-x --with-jpeg-include-dir={{.JPEG_SRC}}/{{.ARCH_NAME}}/include --with-jpeg-lib-dir={{.JPEG_SRC}}/{{.ARCH_NAME}}/lib
+    status:
+      - test -f {{.TIFF_SRC}}/{{.ARCH_NAME}}/Makefile
+
+  download-libtiff:
+    cmds:
+      - |
+        curl http://download.osgeo.org/libtiff/{{.TIFF_NAME}}.tar.gz | tar -xpf-
+        cp {{.PATCH_DIR}}/config.sub.patched {{.TIFF_SRC}}/config/config.sub
+    status:
+      - test -d {{.TIFF_SRC}}

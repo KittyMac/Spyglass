@@ -2,6 +2,7 @@ import Foundation
 import Hitch
 import Chronometer
 import CTess
+import Gzip
 
 /// [tessdata](https://github.com/tesseract-ocr/tessdata),
 /// [tessdata_best](https://github.com/tesseract-ocr/tessdata_best),
@@ -14,9 +15,43 @@ struct CTessError: LocalizedError {
 public class Spyglass {
     let ctess: UnsafeMutablePointer<CTess>?
     
+    public init() throws {
+        let languages = "eng"
+        guard let tessdata = try? SpyglassPamphlet.EngBestTraineddataGzip().gunzipped() else {
+            throw CTessError(error: "unable to decompress traindata")
+        }
+        
+        ctess = tessdata.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_init2(languages,
+                               unsafeBufferPointer.baseAddress,
+                               tessdata.count)
+        }
+
+        if ctess == nil {
+            throw CTessError(error: "failed to initialize tesseract")
+        }
+    }
+    
     public init(languages: String,
                 tessdataPath: String) throws {
         ctess = ctess_init(languages, tessdataPath)
+        if ctess == nil {
+            throw CTessError(error: "failed to initialize tesseract")
+        }
+    }
+    
+    public init(languages: String,
+                tessdata: Data) throws {
+        ctess = tessdata.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_init2(languages,
+                               unsafeBufferPointer.baseAddress,
+                               tessdata.count)
+        }
+
         if ctess == nil {
             throw CTessError(error: "failed to initialize tesseract")
         }
@@ -27,8 +62,12 @@ public class Spyglass {
     }
     
     public func parse(image: Data) -> String? {
-        let stringPtr = image.withUnsafeBytes { bytePointer in
-            return ctess_parse(ctess, bytePointer, image.count)
+        let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_parse(ctess,
+                               unsafeBufferPointer.baseAddress,
+                               image.count)
         }
         
         guard let stringPtr = stringPtr else { return nil}
