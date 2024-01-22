@@ -17,7 +17,7 @@ public class Spyglass {
     
     public init() throws {
         let languages = "eng"
-        guard let tessdata = try? SpyglassPamphlet.EngBestTraineddataGzip().gunzipped() else {
+        guard let tessdata = try? SpyglassPamphlet.EngFastTraineddataGzip().gunzipped() else {
             throw CTessError(error: "unable to decompress traindata")
         }
         
