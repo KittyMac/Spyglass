@@ -84,6 +84,6 @@ final class SpyglassTests: XCTestCase {
         let result = spyglass.parse(image: image.dataNoCopy(),
                                     binarized: -1,
                                     cropLeft: 150)
-        XCTAssertEqual(result, "Men\'s \'PARIS\' Letter Prin... $10.47\nKhaki / M(38) xl\nURONLY\n\nMen\'s Rabbit Graffiti Pri... $12.87\nGrey / M(38) x1\nSeek Sun Vigor\n")
+        XCTAssertEqual(result, "Men\'s \'PARIS\' Letter Prin... $10.47\nKhaki / M(38) x1\nURONLY\n\nMen\'s Rabbit Graffiti Pri... $12.87\nGrey / M(38) x1\nSeek Sun Vigor\n")
     }
 }
