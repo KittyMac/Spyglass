@@ -6,13 +6,14 @@
 #include <tesseract/pix.h>
 #include <string.h>
 
-extern l_uint32 * pixGetData ( PIX *pix );
-extern l_int32 pixGetWidth ( const PIX *pix );
-extern l_int32 pixGetHeight ( const PIX *pix );
+extern l_uint32 * pixGetData (PIX *pix);
+extern l_int32 pixGetWidth (const PIX *pix);
+extern l_int32 pixGetHeight (const PIX *pix);
+extern l_ok pixAlphaIsOpaque (PIX *pix, l_int32 *popaque);
 
-extern PIX * pixConvertTo32 ( PIX *pixs );
-extern PIX * pixConvertTo8 ( PIX *pixs, l_int32 cmapflag );
-extern PIX * pixConvertTo1 ( PIX *pixs, l_int32 threshold );
+extern PIX * pixConvertTo32 (PIX *pixs);
+extern PIX * pixConvertTo8 (PIX *pixs, l_int32 cmapflag);
+extern PIX * pixConvertTo1 (PIX *pixs, l_int32 threshold);
 
 extern PIX * pixReadMem(const l_uint8 *data, size_t size );
 extern PIX * pixRemoveBorderGeneral ( PIX *pixs, l_int32 left, l_int32 right, l_int32 top, l_int32 bot );
@@ -70,8 +71,8 @@ const char * ctess_parse(CTess * ctess,
     if (binaryThreshold != 0) {
         
         if (binaryThreshold < 0) {
-            // iterate over all of the pixels; if any color pixel is > threshold
-            // set it to 255. All completely transparent pixels should be 0
+            // Separate everything from the "background" and the "foreground". The
+            // top left pixel is choosen as the "background".
             PIX * pix32 = pixConvertTo32 (pix);
             pixDestroy(&pix);
             
@@ -81,14 +82,48 @@ const char * ctess_parse(CTess * ctess,
             l_uint8 * endPtr = startPtr + (w * h * 4);
             l_uint8 * ptr = startPtr;
             
-            // Mask by the alpha to solid black and white
+            l_uint32 background = ((l_uint32 *)startPtr)[0];
+            
+            bool isBadAlpha = true;
             while (ptr < endPtr) {
-                ptr[1] = 255 - ptr[0];
-                ptr[2] = 255 - ptr[0];
-                ptr[3] = 255 - ptr[0];
-                ptr[0] = 255;
+                if (ptr[0] != 0) {
+                    isBadAlpha = false;
+                    break;
+                }
                 ptr += 4;
             }
+            ptr = startPtr;
+            
+            // Mask by the alpha to solid black and white
+            if (isBadAlpha) {
+                while (ptr < endPtr) {
+                    if (((l_uint32 *)ptr)[0] == background) {
+                        ptr[1] = 255;
+                        ptr[2] = 255;
+                        ptr[3] = 255;
+                    } else {
+                        ptr[1] = 0;
+                        ptr[2] = 0;
+                        ptr[3] = 0;
+                    }
+                    ptr[0] = 255;
+                    ptr += 4;
+                }
+            } else {
+                while (ptr < endPtr) {
+                    ptr[1] = 255 - ptr[0];
+                    ptr[2] = 255 - ptr[0];
+                    ptr[3] = 255 - ptr[0];
+                    ptr[0] = 255;
+                    ptr += 4;
+                }
+
+            }
+            
+            fprintf(stderr, "%d x %d\n", w, h);
+            FILE * file = fopen("/tmp/sample.raw", "wb");
+            fwrite(startPtr, endPtr - startPtr, 1, file);
+            fclose(file);
             
             pix = pix32;
         } else {

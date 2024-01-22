@@ -76,4 +76,14 @@ final class SpyglassTests: XCTestCase {
                                     cropLeft: 150)
         XCTAssertEqual(result, "10pcs Dupes Luxury We... $3.67\nSE3252 x1\nNooxian\n")
     }
+    
+    func testImage9() {
+        let image = Hitch(contentsOfFile: testdata(path: "Data/images/image9.png"))!
+        guard let spyglass = try? Spyglass() else { XCTFail(); return }
+        
+        let result = spyglass.parse(image: image.dataNoCopy(),
+                                    binarized: -1,
+                                    cropLeft: 150)
+        XCTAssertEqual(result, "Men\'s \'PARIS\' Letter Prin... $10.47\nKhaki / M(38) xl\nURONLY\n\nMen\'s Rabbit Graffiti Pri... $12.87\nGrey / M(38) x1\nSeek Sun Vigor\n")
+    }
 }
