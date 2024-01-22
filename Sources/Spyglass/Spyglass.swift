@@ -14,6 +14,7 @@ struct CTessError: LocalizedError {
 
 public class Spyglass {
     let ctess: UnsafeMutablePointer<CTess>?
+    let lock = NSLock()
     
     public init() throws {
         let languages = "eng"
@@ -67,6 +68,8 @@ public class Spyglass {
                       cropLeft: Int = 0,
                       cropBottom: Int = 0,
                       cropRight: Int = 0) -> String? {
+        lock.lock(); defer { lock.unlock() }
+        
         let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
             let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
 
@@ -90,14 +93,3 @@ public class Spyglass {
         return string
     }
 }
-
-/*
- const char * ctess_parse(CTess * ctess,
-                          const void * imageData,
-                          size_t imageDataSize,
-                          int32_t binaryThreshold,
-                          int32_t cropTop,
-                          int32_t cropLeft,
-                          int32_t cropBottom,
-                          int32_t cropRight)
- */
