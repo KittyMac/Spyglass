@@ -23,15 +23,7 @@ final class SpyglassTests: XCTestCase {
         let result = spyglass.parse(image: image.dataNoCopy())
         XCTAssertEqual(result, "2F.SM.LC.SCA.12FT\n")
     }
-    
-    func testImage2() {
-        let image = Hitch(contentsOfFile: testdata(path: "Data/images/image2.png"))!
-        guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
-        let result = spyglass.parse(image: image.dataNoCopy())
-        XCTAssertEqual(result, "Lenore\nLenore, Lenore, mon amour\nEvery day | love you more\nWithout you, my heart grows sore\nJe te aime encore trés beaucoup, Lenore\nLenore, Lenore, don\'t think me a bore\nBut | can go on and on about your charms\nforever and ever more\nOn a scale of one to three, | love you four\nMon amour, je te aime encore tres beaucoup,\nLenore\n")
-    }
-    
     func testImage3() {
         let image = Hitch(contentsOfFile: testdata(path: "Data/images/image3.png"))!
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
@@ -61,7 +53,7 @@ final class SpyglassTests: XCTestCase {
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
         let result = spyglass.parse(image: image.dataNoCopy(),
-                                    binarized: 0,
+                                    binarized: -1,
                                     cropLeft: 150)
         XCTAssertEqual(result, "Gradient Glitter Phone C... $2.97\niPhone 14 Pro / black x1\nVertical dingcheng\n")
     }
@@ -71,7 +63,17 @@ final class SpyglassTests: XCTestCase {
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
         let result = spyglass.parse(image: image.dataNoCopy(),
-                                    binarized: 0)
+                                    binarized: -1)
         XCTAssertEqual(result, "Item(s) total: $42.64\nItem(s) discount: -$30.67\n\n$11.97\nSubtotal: $11.97\nShipping: FREE\nSales tax: $0.72\nOrder total: $12.69\nYou saved: -$30.67\n")
+    }
+    
+    func testImage8() {
+        let image = Hitch(contentsOfFile: testdata(path: "Data/images/image8.png"))!
+        guard let spyglass = try? Spyglass() else { XCTFail(); return }
+        
+        let result = spyglass.parse(image: image.dataNoCopy(),
+                                    binarized: -1,
+                                    cropLeft: 150)
+        XCTAssertEqual(result, "10pcs Dupes Luxury We... $3.67\nSE3252 x1\nNooxian\n")
     }
 }

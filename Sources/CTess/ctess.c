@@ -6,9 +6,15 @@
 #include <tesseract/pix.h>
 #include <string.h>
 
-extern PIX * pixReadMem(const l_uint8 *data, size_t size );
+extern l_uint32 * pixGetData ( PIX *pix );
+extern l_int32 pixGetWidth ( const PIX *pix );
+extern l_int32 pixGetHeight ( const PIX *pix );
+
+extern PIX * pixConvertTo32 ( PIX *pixs );
 extern PIX * pixConvertTo8 ( PIX *pixs, l_int32 cmapflag );
-extern PIX * pixThresholdToBinary ( PIX *pixs, l_int32 thresh );
+extern PIX * pixConvertTo1 ( PIX *pixs, l_int32 threshold );
+
+extern PIX * pixReadMem(const l_uint8 *data, size_t size );
 extern PIX * pixRemoveBorderGeneral ( PIX *pixs, l_int32 left, l_int32 right, l_int32 top, l_int32 bot );
 extern void pixDestroy ( PIX **ppix );
 
@@ -61,11 +67,35 @@ const char * ctess_parse(CTess * ctess,
     PIX * pix = pixReadMem(imageData, imageDataSize);
     if (pix == NULL) { return NULL; }
     
-    if (binaryThreshold > 0) {
-        PIX *pixB = pixConvertTo8(pix, 0);
-        pixDestroy(&pix);
-        pix = pixThresholdToBinary(pixB, binaryThreshold);
-        pixDestroy(&pixB);
+    if (binaryThreshold != 0) {
+        
+        if (binaryThreshold < 0) {
+            // iterate over all of the pixels; if any color pixel is > threshold
+            // set it to 255. All completely transparent pixels should be 0
+            PIX * pix32 = pixConvertTo32 (pix);
+            pixDestroy(&pix);
+            
+            l_uint8 * startPtr = (l_uint8 *)pixGetData(pix32);
+            l_int32 w = pixGetWidth(pix32);
+            l_int32 h = pixGetHeight(pix32);
+            l_uint8 * endPtr = startPtr + (w * h * 4);
+            l_uint8 * ptr = startPtr;
+            
+            // Mask by the alpha to solid black and white
+            while (ptr < endPtr) {
+                ptr[1] = 255 - ptr[0];
+                ptr[2] = 255 - ptr[0];
+                ptr[3] = 255 - ptr[0];
+                ptr[0] = 255;
+                ptr += 4;
+            }
+            
+            pix = pix32;
+        } else {
+            PIX * pix1 = pixConvertTo1(pix, binaryThreshold);
+            pixDestroy(&pix);
+            pix = pix1;
+        }
     }
     
     if (cropTop > 0 || cropLeft > 0 || cropBottom > 0 || cropRight > 0) {
@@ -81,10 +111,12 @@ const char * ctess_parse(CTess * ctess,
     }
     
     const char * string = TessBaseAPIGetUTF8Text(ctess->tesseract);
+    if (string == NULL) {
+        return NULL;
+    }
+    
     const char * string2 = strdup(string);
-    
     TessDeleteText(string);
-    
     return string2;
 }
 
