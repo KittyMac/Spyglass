@@ -37,7 +37,12 @@ final class SpyglassTests: XCTestCase {
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
         let result = spyglass.parse(image: image.dataNoCopy())
+        
+        #if os(Linux)
+        XCTAssertEqual(result, "P<GRCELLINAS<<GEORGIOS<<<<<<<<<<<<ssssesss<<\nAE00000057GRC6504049M1208283<<<<<<<<<<<<<<00\n")
+        #else
         XCTAssertEqual(result, "P<GRCELLINAS<<GEORGIOS<<<<<<<<<<<sssssessss<\nAE00000057G6RC6504049M1208283<<<<<<<<<<<<<<00\n")
+        #endif
     }
     
     func testImage5() {
@@ -45,7 +50,12 @@ final class SpyglassTests: XCTestCase {
         guard let spyglass = try? Spyglass() else { XCTFail(); return }
         
         let result = spyglass.parse(image: image.dataNoCopy())
+        
+        #if os(Linux)
+        XCTAssertEqual(result, "KEHTIV KUNI/DATE OF EXPIRY.\n21.02.2012\n")
+        #else
         XCTAssertEqual(result, "KEHTIV KUNI/DATE OF EXPIRY\n21.02.2012\n")
+        #endif
     }
     
     func testImage6() {

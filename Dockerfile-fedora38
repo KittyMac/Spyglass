@@ -12,16 +12,18 @@ RUN dnf install -y \
 RUN ln -s /usr/libexec/swift/*/lib/libsourcekitdInProc.so /usr/lib/libsourcekitdInProc.so
 
 WORKDIR /root/Spyglass
+COPY ./.build/repositories ./.build/repositories
+COPY ./.git ./.git
 COPY ./Makefile ./Makefile
 COPY ./Package.resolved ./Package.resolved
 COPY ./Package.swift ./Package.swift
 COPY ./Sources ./Sources
 COPY ./Tests ./Tests
 
-RUN swift package update
+RUN swift package resolve
 RUN swift build --configuration release
 RUN swift test -v
 
 FROM alpine
 
-COPY --from=builder /root/Spyglass/.build/debug/libtesseract.framework/libtesseract .
+COPY --from=builder /root/Spyglass/.build/debug/Spyglass.build/Spyglass.swift.o .

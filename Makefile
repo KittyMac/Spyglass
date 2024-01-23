@@ -21,6 +21,18 @@ profile: clean
 		-Xswiftc -trace-stats-events \
 		-Xswiftc -driver-time-compilation \
 		-Xswiftc -debug-time-function-bodies
+		
+docker-all: fedora37 fedora38
+
+focal: docker
+	# Note: focal will fail due to api differences between tesseract 4 and 5
+	# docker buildx build --file Dockerfile-focal --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
+
+fedora37: docker
+	docker buildx build --file Dockerfile-fedora37 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
+
+fedora38: docker
+	docker buildx build --file Dockerfile-fedora38 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
 
 docker:
 	-docker buildx create --name cluster_builder203
@@ -28,8 +40,6 @@ docker:
 	-docker buildx use cluster_builder203
 	-docker buildx inspect --bootstrap
 	-docker login
-	docker buildx build --file Dockerfile-focal --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
-	docker buildx build --file Dockerfile-fedora37 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
-	docker buildx build --file Dockerfile-fedora38 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
+	swift package resolve
 
 # docker run --rm -it --entrypoint bash fedora:37
