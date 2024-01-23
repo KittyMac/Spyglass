@@ -25,8 +25,7 @@ profile: clean
 docker-all: fedora37 fedora38
 
 focal: docker
-	# Note: focal will fail due to api differences between tesseract 4 and 5
-	# docker buildx build --file Dockerfile-focal --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
+	docker buildx build --file Dockerfile-focal --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
 
 fedora37: docker
 	docker buildx build --file Dockerfile-fedora37 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
