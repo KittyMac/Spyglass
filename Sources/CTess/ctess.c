@@ -6,6 +6,8 @@
 #include <tesseract/pix.h>
 #include <string.h>
 
+extern l_int32 setMsgSeverity ( l_int32 newsev );
+
 extern l_uint32 * pixGetData (PIX *pix);
 extern l_int32 pixGetWidth (const PIX *pix);
 extern l_int32 pixGetHeight (const PIX *pix);
@@ -21,6 +23,8 @@ extern void pixDestroy ( PIX **ppix );
 
 CTess * ctess_init(const char * language,
                    const char * tessdataPath) {
+    setMsgSeverity(6);
+    
     CTess * ctess = malloc(sizeof(CTess));
     ctess->tesseract = TessBaseAPICreate();
     TessBaseAPIInit2(ctess->tesseract,
@@ -33,6 +37,8 @@ CTess * ctess_init(const char * language,
 CTess * ctess_init2(const char * language,
                     const char * tessdata,
                     size_t tessdatasize) {
+    setMsgSeverity(6);
+    
     CTess * ctess = malloc(sizeof(CTess));
     ctess->tesseract = TessBaseAPICreate();
     TessBaseAPIInit5(ctess->tesseract,
