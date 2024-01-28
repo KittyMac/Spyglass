@@ -140,12 +140,10 @@ const char * ctess_parse(CTess * ctess,
 
             }
             
-            /*
-            fprintf(stderr, "%d x %d\n", w, h);
-            FILE * file = fopen("/tmp/sample.raw", "wb");
-            fwrite(startPtr, endPtr - startPtr, 1, file);
-            fclose(file);
-            */
+            // fprintf(stderr, "%d x %d\n", w, h);
+            // FILE * file = fopen("/tmp/sample.raw", "wb");
+            // fwrite(startPtr, endPtr - startPtr, 1, file);
+            // fclose(file);
             
             pix = pix32;
         } else {
@@ -168,6 +166,8 @@ const char * ctess_parse(CTess * ctess,
     }
     
     const char * string = TessBaseAPIGetUTF8Text(ctess->tesseract);
+    pixDestroy(&pix);
+    
     if (string == NULL) {
         return NULL;
     }

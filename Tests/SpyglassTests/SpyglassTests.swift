@@ -96,4 +96,23 @@ final class SpyglassTests: XCTestCase {
                                     cropLeft: 150)
         XCTAssertEqual(result, "Men\'s \'PARIS\' Letter Prin... $10.47\nKhaki / M(38) x1\nURONLY\n\nMen\'s Rabbit Graffiti Pri... $12.87\nGrey / M(38) x1\nSeek Sun Vigor\n")
     }
+    
+    func testImage10() {
+        // baseline: 0.375
+        // no binarization: 0.371
+        // no cropping: 0.490
+        // LEGACY/BEST: 0.592
+        // binarization of 128: 0.246
+        
+        let image = Hitch(contentsOfFile: testdata(path: "Data/images/image10.png"))!
+        guard let spyglass = try? Spyglass() else { XCTFail(); return }
+        
+        var result: String? = nil
+        measure {
+            result = spyglass.parse(image: image.dataNoCopy(),
+                                    binarized: -1,
+                                    cropLeft: 150)
+        }
+        XCTAssertEqual(result, "1pc Machine Washable ... $3.98\nBlue x1\nluroca\n\nTransparent Desktop D... $5.98\n8 compartments with cover... x2\nFeng Qin\n\nOrganize Your Cables w... $5.48\nMulticolor / 20pcs x1\nKCNKON\n\nCompact Electronic Org... $2.51\nBlack x2\nSIMTOP Direct\n\n14pcs/set, Charcuterie ... $9.44\n14PCS x1\nANYIUS\n\nPremium Stainless Steel... $3.99\nNatural Color x1\nAPPUA\n\n2pcs, Silicone Spoon, Lo... $5.48\n2pcs Black x1\nshushui\n\n5pcs Mesh Zipper Pouc... $2.48\nA6 - (23*11CM) x1\nANLIN\n\n5pcs Mesh Zipper Pouc... $2.98\nA5 - (24*18CM) x1\nANLIN\n\n1pc Small Jewelry Box, ... $2.47\npink x1\nBBAOYU\n\n10PCS Travel Shoes Sto... $2.18\n5 x1\nMeimeiya care\n\n7 Pcs Travel Storage Lu... $10.08\nKhaki &quot;cationic&quot... x1\nSoak up the road\n\n7 Pcs Travel Storage Lu... $8.68\nKorean Blue [twill Oxford... x1\nSoak up the road\n")
+    }
 }
