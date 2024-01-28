@@ -21,49 +21,19 @@ extern PIX * pixReadMem(const l_uint8 *data, size_t size );
 extern PIX * pixRemoveBorderGeneral ( PIX *pixs, l_int32 left, l_int32 right, l_int32 top, l_int32 bot );
 extern void pixDestroy ( PIX **ppix );
 
-CTess * ctess_init(const char * language,
-                   const char * tessdataPath) {
-    setMsgSeverity(6);
-    
-    CTess * ctess = malloc(sizeof(CTess));
-    ctess->tesseract = TessBaseAPICreate();
-    TessBaseAPIInit2(ctess->tesseract,
-                     tessdataPath,
-                     language,
-                     OEM_LSTM_ONLY);
-    return ctess;
-}
+static __thread TessBaseAPI * threadTesseract = NULL;
 
-CTess * ctess_init2(const char * language,
-                    const char * tessdata,
-                    size_t tessdatasize) {
-    setMsgSeverity(6);
-    
-    CTess * ctess = malloc(sizeof(CTess));
-    ctess->tesseract = TessBaseAPICreate();
-    TessBaseAPIInit5(ctess->tesseract,
-                     tessdata,
-                     (int)tessdatasize,
-                     language,
-                     OEM_LSTM_ONLY,
-                     NULL,
-                     0,
-                     NULL,
-                     NULL,
-                     0,
-                     0);
-    return ctess;
-}
-
-void ctess_destroy(CTess * ctess) {
-    if (ctess != NULL) {
-        TessBaseAPIEnd(ctess->tesseract);
-        TessBaseAPIDelete(ctess->tesseract);
-        free(ctess);
+void ctess_destroy() {
+    if (threadTesseract != NULL) {
+        TessBaseAPIEnd(threadTesseract);
+        TessBaseAPIDelete(threadTesseract);
+        free(threadTesseract);
     }
 }
 
-const char * ctess_parse(CTess * ctess,
+const char * ctess_parse(const char * language,
+                         const char * tessdata,
+                         size_t tessdatasize,
                          const void * imageData,
                          size_t imageDataSize,
                          int32_t binaryThreshold,
@@ -71,6 +41,23 @@ const char * ctess_parse(CTess * ctess,
                          int32_t cropLeft,
                          int32_t cropBottom,
                          int32_t cropRight) {
+    if (threadTesseract == NULL) {
+        setMsgSeverity(6);
+        
+        threadTesseract = TessBaseAPICreate();
+        TessBaseAPIInit5(threadTesseract,
+                         tessdata,
+                         (int)tessdatasize,
+                         language,
+                         OEM_LSTM_ONLY,
+                         NULL,
+                         0,
+                         NULL,
+                         NULL,
+                         0,
+                         0);
+    }
+    
     PIX * pix = pixReadMem(imageData, imageDataSize);
     if (pix == NULL) { return NULL; }
     
@@ -159,13 +146,13 @@ const char * ctess_parse(CTess * ctess,
         pix = pixB;
     }
     
-    TessBaseAPISetImage2(ctess->tesseract, pix);
+    TessBaseAPISetImage2(threadTesseract, pix);
     
-    if (TessBaseAPIGetSourceYResolution(ctess->tesseract) < 70) {
-        TessBaseAPISetSourceResolution(ctess->tesseract, 300);
+    if (TessBaseAPIGetSourceYResolution(threadTesseract) < 70) {
+        TessBaseAPISetSourceResolution(threadTesseract, 300);
     }
     
-    const char * string = TessBaseAPIGetUTF8Text(ctess->tesseract);
+    const char * string = TessBaseAPIGetUTF8Text(threadTesseract);
     pixDestroy(&pix);
     
     if (string == NULL) {
