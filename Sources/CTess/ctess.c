@@ -74,6 +74,12 @@ const char * ctess_parse(CTess * ctess,
     PIX * pix = pixReadMem(imageData, imageDataSize);
     if (pix == NULL) { return NULL; }
     
+    if (cropTop > 0 || cropLeft > 0 || cropBottom > 0 || cropRight > 0) {
+        PIX *pixB = pixRemoveBorderGeneral(pix, cropLeft, cropRight, cropTop, cropBottom);
+        pixDestroy(&pix);
+        pix = pixB;
+    }
+    
     if (binaryThreshold != 0) {
         
         if (binaryThreshold < 0) {
@@ -151,12 +157,6 @@ const char * ctess_parse(CTess * ctess,
             pixDestroy(&pix);
             pix = pix1;
         }
-    }
-    
-    if (cropTop > 0 || cropLeft > 0 || cropBottom > 0 || cropRight > 0) {
-        PIX *pixB = pixRemoveBorderGeneral(pix, cropLeft, cropRight, cropTop, cropBottom);
-        pixDestroy(&pix);
-        pix = pixB;
     }
     
     TessBaseAPISetImage2(ctess->tesseract, pix);
