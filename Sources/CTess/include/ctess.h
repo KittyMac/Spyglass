@@ -3,10 +3,17 @@
 
 #import <stdlib.h>
 
-void ctess_destroy();
-const char * ctess_parse(const char * language,
-                         const char * tessdata,
-                         size_t tessdatasize,
+typedef struct CTess {
+    void * tesseract;
+} CTess;
+
+CTess * ctess_init(const char * language,
+                   const char * tessdataPath);
+CTess * ctess_init2(const char * language,
+                    const char * tessdata,
+                    size_t tessdatasize);
+void ctess_destroy(CTess * ctess);
+const char * ctess_parse(CTess * ctess,
                          const void * imageData,
                          size_t imageDataSize,
                          int32_t binaryThreshold,

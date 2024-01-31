@@ -12,47 +12,84 @@ struct CTessError: LocalizedError {
     let error: String
 }
 
-let tessdata = (try? SpyglassPamphlet.EngFastTraineddataGzip().gunzipped()) ?? Data()
-
-public enum Spyglass {
+public class Spyglass {
+    let ctess: UnsafeMutablePointer<CTess>?
+    let lock = NSLock()
     
-    public static func destroy() {
-        ctess_destroy()
+    public init() throws {
+        let languages = "eng"
+        guard let tessdata = try? SpyglassPamphlet.EngFastTraineddataGzip().gunzipped() else {
+            throw CTessError(error: "unable to decompress traindata")
+        }
+        
+        ctess = tessdata.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_init2(languages,
+                               unsafeBufferPointer.baseAddress,
+                               tessdata.count)
+        }
+
+        if ctess == nil {
+            throw CTessError(error: "failed to initialize tesseract")
+        }
     }
     
-    public static func parse(image: Data,
-                             binarized: Int = 0,
-                             cropTop: Int = 0,
-                             cropLeft: Int = 0,
-                             cropBottom: Int = 0,
-                             cropRight: Int = 0) -> String? {
-        
-        return tessdata.withUnsafeBytes { unsafeRawBufferPointer in
-            let unsafeDataBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
-            
-            let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
-                let unsafeImageBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
-                
-                return ctess_parse("eng",
-                                   unsafeDataBufferPointer.baseAddress,
-                                   tessdata.count,
-                                   unsafeImageBufferPointer.baseAddress,
-                                   image.count,
-                                   Int32(binarized),
-                                   Int32(cropTop),
-                                   Int32(cropLeft),
-                                   Int32(cropBottom),
-                                   Int32(cropRight)
-                )
-            }
-
-            guard let stringPtr = stringPtr else { return nil}
-            
-            let string = String(utf8String: stringPtr)
-            
-            free(UnsafeMutableRawPointer(mutating: stringPtr))
-            
-            return string
+    public init(languages: String,
+                tessdataPath: String) throws {
+        ctess = ctess_init(languages, tessdataPath)
+        if ctess == nil {
+            throw CTessError(error: "failed to initialize tesseract")
         }
+    }
+    
+    public init(languages: String,
+                tessdata: Data) throws {
+        ctess = tessdata.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_init2(languages,
+                               unsafeBufferPointer.baseAddress,
+                               tessdata.count)
+        }
+
+        if ctess == nil {
+            throw CTessError(error: "failed to initialize tesseract")
+        }
+    }
+    
+    deinit {
+        ctess_destroy(ctess)
+    }
+        
+    public func parse(image: Data,
+                      binarized: Int = 0,
+                      cropTop: Int = 0,
+                      cropLeft: Int = 0,
+                      cropBottom: Int = 0,
+                      cropRight: Int = 0) -> String? {
+        lock.lock(); defer { lock.unlock() }
+        
+        let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
+            let unsafeBufferPointer = unsafeRawBufferPointer.bindMemory(to: UInt8.self)
+
+            return ctess_parse(ctess,
+                               unsafeBufferPointer.baseAddress,
+                               image.count,
+                               Int32(binarized),
+                               Int32(cropTop),
+                               Int32(cropLeft),
+                               Int32(cropBottom),
+                               Int32(cropRight)
+            )
+        }
+        
+        guard let stringPtr = stringPtr else { return nil}
+        
+        let string = String(utf8String: stringPtr)
+        
+        free(UnsafeMutableRawPointer(mutating: stringPtr))
+        
+        return string
     }
 }
