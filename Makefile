@@ -41,4 +41,4 @@ docker:
 	-docker login
 	swift package resolve
 
-# docker run --rm -it --entrypoint bash fedora:37
+# docker run --rm -it --entrypoint bash swift:5.7.1-focal-slim

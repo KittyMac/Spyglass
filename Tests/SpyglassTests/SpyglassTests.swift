@@ -115,4 +115,28 @@ final class SpyglassTests: XCTestCase {
         }
         XCTAssertEqual(result, "1pc Machine Washable ... $3.98\nBlue x1\nluroca\n\nTransparent Desktop D... $5.98\n8 compartments with cover... x2\nFeng Qin\n\nOrganize Your Cables w... $5.48\nMulticolor / 20pcs x1\nKCNKON\n\nCompact Electronic Org... $2.51\nBlack x2\nSIMTOP Direct\n\n14pcs/set, Charcuterie ... $9.44\n14PCS x1\nANYIUS\n\nPremium Stainless Steel... $3.99\nNatural Color x1\nAPPUA\n\n2pcs, Silicone Spoon, Lo... $5.48\n2pcs Black x1\nshushui\n\n5pcs Mesh Zipper Pouc... $2.48\nA6 - (23*11CM) x1\nANLIN\n\n5pcs Mesh Zipper Pouc... $2.98\nA5 - (24*18CM) x1\nANLIN\n\n1pc Small Jewelry Box, ... $2.47\npink x1\nBBAOYU\n\n10PCS Travel Shoes Sto... $2.18\n5 x1\nMeimeiya care\n\n7 Pcs Travel Storage Lu... $10.08\nKhaki &quot;cationic&quot... x1\nSoak up the road\n\n7 Pcs Travel Storage Lu... $8.68\nKorean Blue [twill Oxford... x1\nSoak up the road\n")
     }
+    
+    func testImage11() {
+        // baseline: 3.446 (-1, 150)
+        // crop first: 3.426
+        // binarized 128: 2.270
+        // just pixConvert1(250): 3.060
+        // --------
+        // alpha edit in place: 3.172
+        
+        let image = Hitch(contentsOfFile: testdata(path: "Data/images/image11.png"))!
+        guard let spyglass = try? Spyglass() else { XCTFail(); return }
+        
+        var result: String? = nil
+        measure {
+            result = spyglass.parse(image: image.dataNoCopy(),
+                                    binarized: -1,
+                                    cropLeft: 150,
+                                    shrink: 2)
+        }
+        
+        /*
+        XCTAssertEqual(result, "1pc Machine Washable ... $3.98\nBlue x1\nluroca\n\nTransparent Desktop D... $5.98\n8 compartments with cover... x2\nFeng Qin\n\nOrganize Your Cables w... $5.48\nMulticolor / 20pcs x1\nKCNKON\n\nCompact Electronic Org... $2.51\nBlack x2\nSIMTOP Direct\n\n14pcs/set, Charcuterie ... $9.44\n14PCS x1\nANYIUS\n\nPremium Stainless Steel... $3.99\nNatural Color x1\nAPPUA\n\n2pcs, Silicone Spoon, Lo... $5.48\n2pcs Black x1\nshushui\n\n5pcs Mesh Zipper Pouc... $2.48\nA6 - (23*11CM) x1\nANLIN\n\n5pcs Mesh Zipper Pouc... $2.98\nA5 - (24*18CM) x1\nANLIN\n\n1pc Small Jewelry Box, ... $2.47\npink x1\nBBAOYU\n\n10PCS Travel Shoes Sto... $2.18\n5 x1\nMeimeiya care\n\n7 Pcs Travel Storage Lu... $10.08\nKhaki &quot;cationic&quot... x1\nSoak up the road\n\n7 Pcs Travel Storage Lu... $8.68\nKorean Blue [twill Oxford... x1\nSoak up the road\n")
+         */
+    }
 }

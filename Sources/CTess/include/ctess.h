@@ -20,6 +20,7 @@ const char * ctess_parse(CTess * ctess,
                          int32_t cropTop,
                          int32_t cropLeft,
                          int32_t cropBottom,
-                         int32_t cropRight);
+                         int32_t cropRight,
+                         int32_t shrink);
 
 #endif

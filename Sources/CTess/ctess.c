@@ -16,6 +16,13 @@ extern l_ok pixAlphaIsOpaque (PIX *pix, l_int32 *popaque);
 extern PIX * pixConvertTo32 (PIX *pixs);
 extern PIX * pixConvertTo8 (PIX *pixs, l_int32 cmapflag);
 extern PIX * pixConvertTo1 (PIX *pixs, l_int32 threshold);
+extern PIX * pixConvertTo8MinMax ( PIX *pixs );
+
+extern PIX * pixScale ( PIX *pixs, l_float32 scalex, l_float32 scaley );
+extern PIX * pixScaleGeneral ( PIX *pixs, l_float32 scalex, l_float32 scaley, l_float32 sharpfract, l_int32 sharpwidth );
+extern PIX * pixScaleRGBToGrayFast ( PIX *pixs, l_int32 factor, l_int32 color );
+extern PIX * pixScaleByIntSampling ( PIX *pixs, l_int32 factor );
+extern PIX * pixScaleSmooth ( PIX *pix, l_float32 scalex, l_float32 scaley );
 
 extern PIX * pixReadMem(const l_uint8 *data, size_t size );
 extern PIX * pixRemoveBorderGeneral ( PIX *pixs, l_int32 left, l_int32 right, l_int32 top, l_int32 bot );
@@ -70,7 +77,8 @@ const char * ctess_parse(CTess * ctess,
                          int32_t cropTop,
                          int32_t cropLeft,
                          int32_t cropBottom,
-                         int32_t cropRight) {
+                         int32_t cropRight,
+                         int32_t shrink) {
     PIX * pix = pixReadMem(imageData, imageDataSize);
     if (pix == NULL) { return NULL; }
     
@@ -79,7 +87,7 @@ const char * ctess_parse(CTess * ctess,
         pixDestroy(&pix);
         pix = pixB;
     }
-    
+        
     if (binaryThreshold != 0) {
         
         if (binaryThreshold < 0) {
@@ -143,7 +151,6 @@ const char * ctess_parse(CTess * ctess,
                     ptr[0] = 255;
                     ptr += 4;
                 }
-
             }
             
             // fprintf(stderr, "%d x %d\n", w, h);
@@ -152,12 +159,17 @@ const char * ctess_parse(CTess * ctess,
             // fclose(file);
             
             pix = pix32;
+            
+            PIX * pixHalf = pixScaleRGBToGrayFast (pix, shrink, COLOR_RED );
+            pixDestroy(&pix);
+            pix = pixHalf;
         } else {
             PIX * pix1 = pixConvertTo1(pix, binaryThreshold);
             pixDestroy(&pix);
             pix = pix1;
         }
     }
+
     
     TessBaseAPISetImage2(ctess->tesseract, pix);
     

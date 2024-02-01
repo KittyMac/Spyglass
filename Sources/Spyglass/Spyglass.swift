@@ -67,7 +67,8 @@ public class Spyglass {
                       cropTop: Int = 0,
                       cropLeft: Int = 0,
                       cropBottom: Int = 0,
-                      cropRight: Int = 0) -> String? {
+                      cropRight: Int = 0,
+                      shrink: Int = 1) -> String? {
         lock.lock(); defer { lock.unlock() }
         
         let stringPtr = image.withUnsafeBytes { unsafeRawBufferPointer in
@@ -80,7 +81,8 @@ public class Spyglass {
                                Int32(cropTop),
                                Int32(cropLeft),
                                Int32(cropBottom),
-                               Int32(cropRight)
+                               Int32(cropRight),
+                               Int32(shrink)
             )
         }
         

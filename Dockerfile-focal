@@ -29,6 +29,22 @@ RUN swift package resolve
 RUN swift build --configuration release
 RUN swift test -v
 
-FROM alpine
+FROM swift:5.7.1-focal-slim
+
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && apt-get -q update && \
+    apt-get -q install -y \
+    software-properties-common \
+    libpq-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libjavascriptcoregtk-4.0-dev \
+    libatomic1 \
+    plzip
+    
+RUN add-apt-repository ppa:alex-p/tesseract-ocr5 && \
+    apt-get install -y \
+    libtesseract5
+
+RUN rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /root/Spyglass/.build/debug/Spyglass.build/Spyglass.swift.o .
