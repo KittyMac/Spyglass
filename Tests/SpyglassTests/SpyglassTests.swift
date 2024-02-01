@@ -131,8 +131,7 @@ final class SpyglassTests: XCTestCase {
         measure {
             result = spyglass.parse(image: image.dataNoCopy(),
                                     binarized: -1,
-                                    cropLeft: 150,
-                                    shrink: 2)
+                                    cropLeft: 150)
         }
         
         /*
