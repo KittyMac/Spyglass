@@ -2,7 +2,7 @@ import Foundation
 import Hitch
 import Chronometer
 import CTess
-import SWCompression
+import Gzip
 
 /// [tessdata](https://github.com/tesseract-ocr/tessdata),
 /// [tessdata_best](https://github.com/tesseract-ocr/tessdata_best),
@@ -18,7 +18,7 @@ public class Spyglass {
     
     public init() throws {
         let languages = "eng"
-        guard let tessdata = try? GzipArchive.unarchive(archive: SpyglassPamphlet.EngFastTraineddataGzip()) else {
+        guard let tessdata = try? SpyglassPamphlet.EngFastTraineddataGzip().gunzipped() else {
             throw CTessError(error: "unable to decompress traindata")
         }
         

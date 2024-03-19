@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "bitbytedata",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tsolomko/BitByteData",
-      "state" : {
-        "revision" : "36df26fe4586b4f23d76cfd8b47076998343a2b2",
-        "version" : "2.0.3"
-      }
-    },
-    {
       "identity" : "chronometer",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Chronometer.git",
@@ -19,12 +10,21 @@
       }
     },
     {
+      "identity" : "gzipswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/GzipSwift.git",
+      "state" : {
+        "revision" : "a9bbc39238e197e3e20b4346c45bfed767a817fe",
+        "version" : "5.3.3"
+      }
+    },
+    {
       "identity" : "hitch",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
-        "revision" : "5e51dca272a21bcf6cbd8dcb3fb318474cbf3e23",
-        "version" : "0.4.128"
+        "revision" : "b23dba215ecaf089996b6975cdc996376ce27cd5",
+        "version" : "0.4.117"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Jib.git",
       "state" : {
-        "revision" : "d5da68667f231bb887eb158db2efc9a75d3a47fd",
-        "version" : "0.0.70"
+        "revision" : "c44d90702f7c9d724a29bde857271b8a78a5b516",
+        "version" : "0.0.69"
       }
     },
     {
@@ -41,35 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Pamphlet.git",
       "state" : {
-        "revision" : "312a0843b457c82a350c33f78334de45d37dd845",
-        "version" : "0.3.96"
-      }
-    },
-    {
-      "identity" : "sextant",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KittyMac/Sextant.git",
-      "state" : {
-        "revision" : "52a77d0bce0210cf9557faef7fd0adb9a6da02fb",
-        "version" : "0.4.31"
-      }
-    },
-    {
-      "identity" : "spanker",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KittyMac/Spanker.git",
-      "state" : {
-        "revision" : "96e58f68274a2e6f370fff153ceb5674a06936c4",
-        "version" : "0.2.47"
-      }
-    },
-    {
-      "identity" : "swcompression",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KittyMac/SWCompression.git",
-      "state" : {
-        "revision" : "cd39ca0a3b269173bab06f68b182b72fa690765c",
-        "version" : "4.8.5"
+        "revision" : "b41a5bbc70a578d5a0672f0866ae49bfb095baa8",
+        "version" : "0.3.90"
       }
     }
   ],
