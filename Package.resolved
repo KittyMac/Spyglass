@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/GzipSwift.git",
       "state" : {
-        "revision" : "a9bbc39238e197e3e20b4346c45bfed767a817fe",
-        "version" : "5.3.3"
+        "revision" : "0f5ce356dc9b75cde454caec96f9e7c2b931caae",
+        "version" : "5.3.6"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
-        "revision" : "b23dba215ecaf089996b6975cdc996376ce27cd5",
-        "version" : "0.4.117"
+        "revision" : "328211598c24f356fccbcb5451cc48e21071a963",
+        "version" : "0.4.139"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Jib.git",
       "state" : {
-        "revision" : "c44d90702f7c9d724a29bde857271b8a78a5b516",
-        "version" : "0.0.69"
+        "revision" : "7edb5f5f43fbf869faae08a91a051be0c0a0d6d1",
+        "version" : "0.0.81"
       }
     },
     {
@@ -41,8 +41,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Pamphlet.git",
       "state" : {
-        "revision" : "b41a5bbc70a578d5a0672f0866ae49bfb095baa8",
-        "version" : "0.3.90"
+        "revision" : "9d061e324b048ba32329320e28e4ee320270091f",
+        "version" : "0.3.102"
+      }
+    },
+    {
+      "identity" : "sextant",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Sextant.git",
+      "state" : {
+        "revision" : "52a77d0bce0210cf9557faef7fd0adb9a6da02fb",
+        "version" : "0.4.31"
+      }
+    },
+    {
+      "identity" : "spanker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Spanker.git",
+      "state" : {
+        "revision" : "96e58f68274a2e6f370fff153ceb5674a06936c4",
+        "version" : "0.2.47"
       }
     }
   ],

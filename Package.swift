@@ -85,7 +85,6 @@ let package = Package(
                 "Chronometer",
                 "CTess",
                 .product(name: "Gzip", package: "GzipSwift"),
-                .product(name: "PamphletTool", package: "Pamphlet"),
             ],
             plugins: [
                 .plugin(name: "PamphletReleaseOnlyPlugin", package: "Pamphlet"),
