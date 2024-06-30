@@ -87,7 +87,7 @@ let package = Package(
                 .product(name: "Gzip", package: "GzipSwift"),
             ],
             plugins: [
-                .plugin(name: "PamphletReleaseOnlyPlugin", package: "Pamphlet"),
+                .plugin(name: "PamphletPlugin", package: "Pamphlet"),
             ]
         ),
         .testTarget(
