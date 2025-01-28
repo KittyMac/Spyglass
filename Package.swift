@@ -3,7 +3,37 @@
 import PackageDescription
 import Foundation
 
-#if !os(Linux)
+#if os(Linux)
+
+let ctessTargets: [Target] = [
+    .target(
+        name: "CTess",
+        dependencies: [ ],
+        cxxSettings: [
+            .headerSearchPath("./")
+        ],
+        linkerSettings: [
+            .linkedLibrary("z"),
+            .linkedLibrary("tesseract", .when(platforms: [.linux])),
+            .linkedLibrary("leptonica", .when(platforms: [.linux]))
+        ]
+    )
+]
+
+#elseif os(Windows)
+
+let ctessTargets: [Target] = [
+    .target(
+        name: "CTess",
+        dependencies: [ ],
+        cxxSettings: [ ],
+        linkerSettings: [
+            .linkedLibrary("swiftCore", .when(platforms: [.windows]))
+        ]
+    )
+]
+
+#else
 
 // For local development involving changes to libtesseract, set this to true to
 // reference the locally built xcframework instead of latest github release.
@@ -38,23 +68,6 @@ let ctessTargets: [Target] = libtesseractTargets + [
             .linkedLibrary("z"),
             .linkedLibrary("c++"),
             .linkedFramework("Accelerate")
-        ]
-    )
-]
-
-#else
-
-let ctessTargets: [Target] = [
-    .target(
-        name: "CTess",
-        dependencies: [ ],
-        cxxSettings: [
-            .headerSearchPath("./")
-        ],
-        linkerSettings: [
-            .linkedLibrary("z"),
-            .linkedLibrary("tesseract", .when(platforms: [.linux])),
-            .linkedLibrary("leptonica", .when(platforms: [.linux]))
         ]
     )
 ]

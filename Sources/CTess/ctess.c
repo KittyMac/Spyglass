@@ -1,10 +1,15 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "ctess.h"
+#include <string.h>
+
+#if defined(_WIN32)
+
+#else
+
 #include <tesseract/environ.h>
 #include <tesseract/capi.h>
 #include <tesseract/pix.h>
-#include <string.h>
 
 extern l_int32 setMsgSeverity ( l_int32 newsev );
 
@@ -177,3 +182,4 @@ const char * ctess_parse(CTess * ctess,
     return string2;
 }
 
+#endif

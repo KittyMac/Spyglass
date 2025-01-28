@@ -4,6 +4,39 @@ import Chronometer
 import CTess
 import Gzip
 
+#if os(Windows)
+
+struct CTessError: LocalizedError {
+    let error: String
+}
+
+public class Spyglass {    
+    public init() throws {
+        throw CTessError(error: "unsupported platform")
+    }
+    
+    public init(languages: String,
+                tessdataPath: String) throws {
+        throw CTessError(error: "unsupported platform")
+    }
+    
+    public init(languages: String,
+                tessdata: Data) throws {
+        throw CTessError(error: "unsupported platform")
+    }
+        
+    public func parse(image: Data,
+                      binarized: Int = 0,
+                      cropTop: Int = 0,
+                      cropLeft: Int = 0,
+                      cropBottom: Int = 0,
+                      cropRight: Int = 0) -> String? {
+        return nil
+    }
+}
+
+#else
+
 /// [tessdata](https://github.com/tesseract-ocr/tessdata),
 /// [tessdata_best](https://github.com/tesseract-ocr/tessdata_best),
 /// or [tessdata_fast](https://github.com/tesseract-ocr/tessdata_fast) respositories
@@ -93,3 +126,5 @@ public class Spyglass {
         return string
     }
 }
+
+#endif

@@ -1,7 +1,8 @@
 #ifndef ctess_h
 #define ctess_h
 
-#import <stdlib.h>
+#include <stdlib.h>
+#include <stdint.h>
 
 typedef struct CTess {
     void * tesseract;
