@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "687C97B0-54B4-4CC8-A69B-9512457AC8BB",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SpyglassTests",
+        "name" : "SpyglassTests"
+      }
+    }
+  ],
+  "version" : 1
+}

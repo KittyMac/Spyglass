@@ -77,9 +77,6 @@ let ctessTargets: [Target] = libtesseractTargets + [
 
 let package = Package(
     name: "Spyglass",
-    platforms: [
-        .macOS(.v10_13), .iOS(.v11)
-    ],
     products: [
         .library( name: "Spyglass", targets: ["Spyglass"]),
         .library( name: "CTess", type: .dynamic, targets: ["CTess"]),
