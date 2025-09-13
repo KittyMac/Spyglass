@@ -8,6 +8,8 @@ typedef struct CTess {
     void * tesseract;
 } CTess;
 
+extern const char * trainingDataBase64;
+
 CTess * ctess_init(const char * language,
                    const char * tessdataPath);
 CTess * ctess_init2(const char * language,
