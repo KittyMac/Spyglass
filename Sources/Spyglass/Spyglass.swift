@@ -51,7 +51,11 @@ public class Spyglass {
     
     public init() throws {
         let languages = "eng"
-        guard let tessdata = try? SpyglassPamphlet.EngFastTraineddataGzip().gunzipped() else {
+        guard let tessdataUrl = Bundle.module.url(forResource: "eng.fast.traineddata", withExtension: "zip") else {
+            throw CTessError(error: "unable to find traindata")
+        }
+        
+        guard let tessdata = try? Data(contentsOf: tessdataUrl).gunzipped() else {
             throw CTessError(error: "unable to decompress traindata")
         }
         
