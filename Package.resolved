@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Chronometer.git",
       "state" : {
-        "revision" : "d21b89e5cb5929b5175bdb3ad710a52cbf497eaa",
-        "version" : "0.1.12"
+        "revision" : "99d4f4137837a28e1e294eb69ac66ad53c0934d3",
+        "version" : "0.1.14"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Hitch.git",
       "state" : {
-        "revision" : "d6c147a1d70992db39a141cb5bf9cf8fbb776250",
-        "version" : "0.4.148"
+        "revision" : "43aa08479b418f9cc99aa6df430a740580898081",
+        "version" : "0.4.150"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Jib.git",
       "state" : {
-        "revision" : "d5c7379c4100c4903921ca12bd3cc927f33e26ff",
-        "version" : "0.0.85"
+        "revision" : "57723e287c9edb495263de6ba566a8ad97ad4483",
+        "version" : "0.0.93"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Pamphlet.git",
       "state" : {
-        "revision" : "5a5edf1c3093abf3af3c8fd53e04514f3a3d8904",
-        "version" : "0.3.120"
+        "revision" : "d4444a27ca118842c137ccc00b3222aa72106925",
+        "version" : "0.3.126"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Sextant.git",
       "state" : {
-        "revision" : "74b947a80df5c8c776262546832e370afe2341f6",
-        "version" : "0.4.35"
+        "revision" : "46e3ad448f69273edd4a6d5087011845b1aa17f7",
+        "version" : "0.4.37"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KittyMac/Spanker.git",
       "state" : {
-        "revision" : "dc24d4860c64c41f8def204ba28db841b9099336",
-        "version" : "0.2.50"
+        "revision" : "602bb3d5db600b5242c3765cf704f7e217c1cc5a",
+        "version" : "0.2.52"
       }
     }
   ],
