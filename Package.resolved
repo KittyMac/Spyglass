@@ -26,6 +26,42 @@
         "revision" : "d6c147a1d70992db39a141cb5bf9cf8fbb776250",
         "version" : "0.4.148"
       }
+    },
+    {
+      "identity" : "jib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Jib.git",
+      "state" : {
+        "revision" : "d5c7379c4100c4903921ca12bd3cc927f33e26ff",
+        "version" : "0.0.85"
+      }
+    },
+    {
+      "identity" : "pamphlet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Pamphlet.git",
+      "state" : {
+        "revision" : "5a5edf1c3093abf3af3c8fd53e04514f3a3d8904",
+        "version" : "0.3.120"
+      }
+    },
+    {
+      "identity" : "sextant",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Sextant.git",
+      "state" : {
+        "revision" : "74b947a80df5c8c776262546832e370afe2341f6",
+        "version" : "0.4.35"
+      }
+    },
+    {
+      "identity" : "spanker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KittyMac/Spanker.git",
+      "state" : {
+        "revision" : "dc24d4860c64c41f8def204ba28db841b9099336",
+        "version" : "0.2.50"
+      }
     }
   ],
   "version" : 2
