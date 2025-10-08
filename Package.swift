@@ -3,50 +3,19 @@
 import PackageDescription
 import Foundation
 
-#if os(Linux)
-
-let ctessTargets: [Target] = [
-    .target(
-        name: "CTess",
-        dependencies: [ ],
-        cxxSettings: [
-            .headerSearchPath("./")
-        ],
-        linkerSettings: [
-            .linkedLibrary("z"),
-            .linkedLibrary("tesseract", .when(platforms: [.linux])),
-            .linkedLibrary("leptonica", .when(platforms: [.linux]))
-        ]
-    )
-]
-
-#elseif os(Windows)
-
-let ctessTargets: [Target] = [
-    .target(
-        name: "CTess",
-        dependencies: [ ],
-        cxxSettings: [ ],
-        linkerSettings: [
-            .linkedLibrary("swiftCore", .when(platforms: [.windows]))
-        ]
-    )
-]
-
-#else
-
 // For local development involving changes to libtesseract, set this to true to
 // reference the locally built xcframework instead of latest github release.
 // You should never commit this to the repo as true
 #if false
-let libtesseractTargets: [Target] = [
+let libtesseractBinaryTargets: [Target] = [
     .binaryTarget(
         name: "libtesseract",
-        path: "libtesseract/libtesseract.xcframework.zip"
+        path: "libtesseract/libtesseract.xcframework.zip",
+        condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS])
     ),
 ]
 #else
-let libtesseractTargets: [Target] = [
+let libtesseractBinaryTargets: [Target] = [
     .binaryTarget(
         name: "libtesseract",
         url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.11/libtesseract.xcframework.zip",
@@ -55,38 +24,34 @@ let libtesseractTargets: [Target] = [
 ]
 #endif
 
-let ctessTargets: [Target] = libtesseractTargets + [
-    .target(
-        name: "CTess",
-        dependencies: [
-            "libtesseract"
-        ],
-        cxxSettings: [
-            .headerSearchPath("./")
-        ],
-        linkerSettings: [
-            .linkedLibrary("z"),
-            .linkedLibrary("c++"),
-            .linkedFramework("Accelerate")
-        ]
-    )
-]
-
-#endif
-
-
 let package = Package(
     name: "Spyglass",
     products: [
         .library( name: "Spyglass", targets: ["Spyglass"]),
-        .library( name: "CTess", type: .dynamic, targets: ["CTess"]),
+        .library( name: "CTess", targets: ["CTess"]),
     ],
     dependencies: [
         .package(url: "https://github.com/KittyMac/Chronometer.git", from: "0.1.0"),
         .package(url: "https://github.com/KittyMac/Hitch.git", from: "0.4.0"),
         .package(url: "https://github.com/KittyMac/GzipSwift.git", from: "5.3.0"),
     ],
-    targets: ctessTargets + [
+    targets: libtesseractBinaryTargets + [
+        .target(
+            name: "CTess",
+            dependencies: [
+                .target(name: "libtesseract", condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS]))
+            ],
+            cxxSettings: [
+                .headerSearchPath("./")
+            ],
+            linkerSettings: [
+                .linkedLibrary("tesseract", .when(platforms: [.linux, .android])),
+                .linkedLibrary("leptonica", .when(platforms: [.linux, .android])),
+                .linkedLibrary("z", .when(platforms: [.linux, .android, .macOS, .iOS, .tvOS, .watchOS])),
+                .linkedLibrary("c++", .when(platforms: [.macOS, .iOS, .tvOS, .watchOS])),
+                .linkedFramework("Accelerate", .when(platforms: [.macOS, .iOS, .tvOS, .watchOS]))
+            ]
+        ),
         .target(
             name: "Spyglass",
             dependencies: [
