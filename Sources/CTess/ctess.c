@@ -94,6 +94,10 @@ const char * ctess_parse(CTess * ctess,
             pixDestroy(&pix);
             
             l_uint8 * startPtr = (l_uint8 *)pixGetData(pix32);
+            if (startPtr == 0) {
+                return NULL;
+            }
+            
             l_int32 w = pixGetWidth(pix32);
             l_int32 h = pixGetHeight(pix32);
             l_uint8 * endPtr = startPtr + (w * h * 4);
