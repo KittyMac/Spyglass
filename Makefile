@@ -24,8 +24,8 @@ profile: clean
 		
 docker-all: fedora37 fedora38
 
-focal: docker
-	docker buildx build --file Dockerfile-focal --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
+noble: docker
+	docker buildx build --file Dockerfile-noble --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .
 
 fedora37: docker
 	docker buildx build --file Dockerfile-fedora37 --platform linux/amd64,linux/arm64 --push -t kittymac/spyglass .

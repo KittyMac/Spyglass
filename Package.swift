@@ -12,16 +12,27 @@ let libtesseractBinaryTargets: [Target] = [
         name: "libtesseract",
         path: "libtesseract/libtesseract.xcframework.zip",
         condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS])
-    ),
+    )
+]
+let libtesseractBinaryDependency: [PackageDescription.Target.Dependency] = [
+    .target(name: "libtesseract", condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS]))
 ]
 #else
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
 let libtesseractBinaryTargets: [Target] = [
     .binaryTarget(
         name: "libtesseract",
         url: "https://github.com/KittyMac/Spyglass/releases/download/v0.0.11/libtesseract.xcframework.zip",
         checksum: "38efe6b860a5bdbe727db77d8d2596270fa5c871eb806926aeefc4022dda33f5"
-    ),
+    )
 ]
+let libtesseractBinaryDependency: [PackageDescription.Target.Dependency] = [
+    .target(name: "libtesseract", condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS]))
+]
+#else
+let libtesseractBinaryTargets: [Target] = []
+let libtesseractBinaryDependency: [PackageDescription.Target.Dependency] = []
+#endif
 #endif
 
 let package = Package(
@@ -38,9 +49,7 @@ let package = Package(
     targets: libtesseractBinaryTargets + [
         .target(
             name: "CTess",
-            dependencies: [
-                .target(name: "libtesseract", condition: .when(platforms: [.macOS, .iOS, .tvOS, .watchOS]))
-            ],
+            dependencies: libtesseractBinaryDependency + [ ],
             cxxSettings: [
                 .headerSearchPath("./")
             ],
